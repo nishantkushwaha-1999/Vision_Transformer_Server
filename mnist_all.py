@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import pandas as pd
 import json
-from io import StringIO
+from io import BytesIO
 
 import anvil.server
 
@@ -31,7 +31,7 @@ def evaluate_bCNN():
 def predict(file):
     # with open(strfile, 'r') as fp:
     file = file.get_bytes()
-    df = pd.read_csv(StringIO(file))
+    df = pd.read_csv(BytesIO(file))
     return df
 
 anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
