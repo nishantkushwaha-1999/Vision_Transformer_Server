@@ -16,5 +16,5 @@ def history_all():
         data = json.load(fp)
     return data
 
-anvil.server.connect("server_4FTKWSNOYMLKR7NPWYBUZPTJ-3G6ST77Q4OVSWPLF")
+anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
 anvil.server.wait_forever()
