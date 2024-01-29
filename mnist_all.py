@@ -12,6 +12,7 @@ def history_all():
         data = json.load(fp)
     return data
 
+@anvil.server.callable
 def evaluate():
     result = mn.evaluate()
     return result
