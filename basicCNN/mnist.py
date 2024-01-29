@@ -7,6 +7,7 @@ import tensorflow_datasets as tfds
 
 class MNIST():
   def __init__(self, normalize: bool = True):
+    tf.config.set_visible_devices([], 'GPU')
     (self.x_train, self.y_train), (self.x_test, self.y_test) = tf.keras.datasets.mnist.load_data()
 
     if normalize:
