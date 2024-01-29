@@ -25,7 +25,7 @@ mn.compile(0.001)
 history_val = mn.fit(batch_size=128, validation_split=0.2, epochs=15)
 
 with open("history_val.json", "w") as fp:
-	json.dumps(history_val.history, fp)
+	json.dump(history_val.history, fp)
 	# fp.writelines(str(history_val.history))
 
 mn.initializeConvNetwork(layers=lyrs)
@@ -33,7 +33,7 @@ mn.compile(0.001)
 history_all = mn.fit(batch_size=128, epochs=10)
 
 with open("history_all.json", "w") as fp:
-	json.dumps(history_all.history, fp)
+	json.dump(history_all.history, fp)
 	# fp.writelines(str(history_all.history))
 
 mn.save('basicCNN')
