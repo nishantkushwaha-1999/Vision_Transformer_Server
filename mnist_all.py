@@ -30,6 +30,7 @@ def evaluate_bCNN():
 @anvil.server.callable
 def predict(file):
     # with open(strfile, 'r') as fp:
+    file = file.get_bytes()
     df = pd.read_csv(StringIO(file))
     return df
 
