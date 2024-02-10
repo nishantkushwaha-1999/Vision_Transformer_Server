@@ -30,7 +30,7 @@ with open("history_val.json", "w") as fp:
 
 mn.initializeConvNetwork(layers=lyrs)
 mn.compile(0.001)
-history_all = mn.fit(batch_size=128, epochs=15)
+history_all = mn.fit(batch_size=128, epochs=20)
 
 with open("history_all.json", "w") as fp:
 	json.dump(history_all.history, fp)
