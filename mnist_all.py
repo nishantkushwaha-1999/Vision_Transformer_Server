@@ -7,11 +7,15 @@ import pandas as pd
 import numpy as np
 import json
 from io import BytesIO
+from ViT.model import VisionTrnasformer
 
 import anvil.server
 
 mn = mnist.MNIST()
 mn.load_model("basicCNN/basicCNN")
+
+vit = VisionTrnasformer()
+vit.load_model("ViT/ViT_Mnist")
 
 @anvil.server.callable
 def get_history(model: str, type: str):
@@ -31,6 +35,21 @@ def predict_basicCNN(file):
       file = file.get_bytes()
       df = pd.read_csv(BytesIO(file), header=None)
       df = np.array(df)
+      
+      val = mn.predict(df)
+      return val
+    
+    except Error as e:
+      return e
+
+@anvil.server.callable
+def predict_vit(file):
+    try:
+      file = file.get_bytes()
+      df = pd.read_csv(BytesIO(file), header=None)
+      df = np.array(df)
+      df = np.expand_dims(df, axis=0)
+      df = vit.preprocess_data(df, patch_rows=7, patch_columns=7)[0]
       
       val = mn.predict(df)
       return val
