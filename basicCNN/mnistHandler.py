@@ -22,7 +22,7 @@ lyrs = [('convo2d', {'filters':15, 'kernel_size':(2, 2), 'strides':(1, 1), 'acti
 
 mn.initializeConvNetwork(layers=lyrs)
 mn.compile(0.001)
-history_val = mn.fit(batch_size=128, validation_split=0.2, epochs=15)
+history_val = mn.fit(batch_size=128, validation_split=0.2, epochs=20)
 
 with open("history_val.json", "w") as fp:
 	json.dump(history_val.history, fp)
