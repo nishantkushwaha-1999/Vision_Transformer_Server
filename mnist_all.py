@@ -50,8 +50,9 @@ def predict_vit(file):
       df = np.array(df)
       df = np.expand_dims(df, axis=0)
       df = vit.preprocess_data(df)[0]
+      print(df.shape)
       
-      val = mn.predict(df)
+      val = vit.predict(df)
       return val
     
     except Error as e:
