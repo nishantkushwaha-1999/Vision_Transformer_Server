@@ -227,6 +227,10 @@ class MNIST():
     if x.shape != (28, 28):
       raise ValueError(f"Expected an array of shape (28, 28), but recieved an array of shape {x.shape}")
     
+    max_val = np.max(x)
+    if max_val > 1:
+      x = x/255.0
+
     x = np.expand_dims(x, axis=0)
     x = tf.convert_to_tensor(x)
     
