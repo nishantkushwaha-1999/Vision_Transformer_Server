@@ -160,6 +160,10 @@ class VisionTrnasformer():
         if x.shape != im_size:
             raise ValueError(f"Expected an array of shape {im_size} but recieved an array of shape {x.shape}")
 
+        max_val = np.max(x)
+        if max_val > 1:
+            x = x/255.0
+        
         x = np.expand_dims(x, axis=0)
         x = tf.convert_to_tensor(x)
 
