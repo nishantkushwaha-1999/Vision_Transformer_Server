@@ -49,7 +49,7 @@ def predict_vit(file):
       df = pd.read_csv(BytesIO(file), header=None)
       df = np.array(df)
       df = np.expand_dims(df, axis=0)
-      df = vit.preprocess_data(df, patch_rows=7, patch_columns=7)[0]
+      df = vit.preprocess_data(df)[0]
       
       val = mn.predict(df)
       return val

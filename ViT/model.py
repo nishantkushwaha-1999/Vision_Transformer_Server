@@ -4,6 +4,10 @@ import numpy as np
 from typing import Union
 import tensorflow as tf
 
+import os
+dir = os.getcwd()
+dir = dir.split('Vision_Transformer_Server')[0]
+
 class ClassToken(tf.keras.layers.Layer):
     def __init__(self):
         super().__init__()
@@ -25,8 +29,8 @@ class ClassToken(tf.keras.layers.Layer):
 
 class VisionTrnasformer():
     def __init__(self):
-        if os.path.isfile('hyperparams.json'):
-            with open("hyperparams.json", 'r') as fp:
+        if os.path.isfile(dir+'Vision_Transformer_Server/ViT/hyperparams.json'):
+            with open(dir+"Vision_Transformer_Server/ViT/hyperparams.json", 'r') as fp:
                 self.hyperparams = json.load(fp)
         else:
             self.hyperparams = {}
@@ -47,6 +51,7 @@ class VisionTrnasformer():
         if type(data)!=np.ndarray:
             data = data.numpy()
         
+        print(self.hyperparams)
         if patch_rows==None:
             patch_rows = self.hyperparams['patch_rows']
         if patch_columns==None:
@@ -82,10 +87,9 @@ class VisionTrnasformer():
                                               self.hyperparams['img_shape_x'])/(self.hyperparams['patch_rows']*
                                                                                 self.hyperparams['patch_columns']))
         
-        with open("hyperparams.json", "w") as fp:
+        with open(dir+"Vision_Transformer_Server/ViT/hyperparams.json", "w") as fp:
 	        json.dump(self.hyperparams, fp)
             
-        
         inputlayer = tf.keras.layers.Input((self.hyperparams['patch_rows']*self.hyperparams['patch_columns']
                                             , self.hyperparams['block_size']))
         n_patches = tf.keras.layers.Input(self.hyperparams['patch_rows']*self.hyperparams['patch_columns'])
