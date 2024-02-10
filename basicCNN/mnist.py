@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Union
 import matplotlib.pyplot as plt
+from contextlib import redirect_stdout
 
 import tensorflow as tf
 import tensorflow_datasets as tfds
@@ -180,6 +181,10 @@ class MNIST():
     # return self.model
 
   def compile(self, learning_rate):
+    with open("basicCNN_summary.txt", "w") as fp:
+      with redirect_stdout(fp):
+          self.model.summary()
+    
     self.model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=False),
