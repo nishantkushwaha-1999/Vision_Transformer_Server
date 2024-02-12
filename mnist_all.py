@@ -37,7 +37,7 @@ class Handler():
   def convert_image(self, file):
     try:
       file = file.get_bytes()
-      im_df = pd.read_csv(BytesIO(self.file), header=None)
+      im_df = pd.read_csv(BytesIO(file), header=None)
       self.im_df = np.array(im_df)
 
       if im_df.shape != (28, 28):
