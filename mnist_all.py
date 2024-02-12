@@ -82,7 +82,7 @@ def image(file):
   return handler.convert_image(file)
 
 @anvil.server.callable
-def image(model):
+def predict(model):
   return handler.predict(model)
 
 anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
