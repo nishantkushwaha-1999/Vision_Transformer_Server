@@ -29,7 +29,9 @@ class Handler():
     if model=='basicCNN':
       result = self.mn.evaluate()
     elif model=='vit':
-        self.vit.evaluate()
+        result = self.vit.evaluate()
+    else:
+       raise ValueError(f"{model} not found.")
     return result
        
 h = Handler()
