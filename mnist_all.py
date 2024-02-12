@@ -33,9 +33,30 @@ class Handler():
     else:
        raise ValueError(f"{model} not found.")
     return result
+  
+  def convert_image(self, file):
+    try:
+      self.file = file.get_bytes()
+      im_df = pd.read_csv(BytesIO(self.file), header=None)
+      im_df = np.array(im_df)
+
+      if im_df.shape != (28, 28):
+        raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {im_df.shape}")
+      
+      image = Image.fromarray(im_df, '1')
+      image.save("input.png")
+
+      return image
+    except Error as e:
+      return e
        
 h = Handler()
 print(h.evaluate('vit'))
+
+@anvil.server.callable
+def image(file):
+  return h.convert_image(file)
+
 # @anvil.server.callable
 # def get_history(model: str, type: str):
 #   path = f"{model}/history_{type}.json"
@@ -50,6 +71,16 @@ print(h.evaluate('vit'))
 
 # @anvil.server.callable
 # def image(file):
+#    try:
+#       file = file.get_bytes()
+#       file = pd.read_csv(BytesIO(file), header=None)
+#       df = np.array(df)
+      
+#       val = mn.predict(df)
+#       return val
+    
+#     except Error as e:
+#       return e
    
 
 # @anvil.server.callable
@@ -81,5 +112,5 @@ print(h.evaluate('vit'))
 #     except Error as e:
 #       return e
 
-# anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
-# anvil.server.wait_forever()
+anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
+anvil.server.wait_forever()
