@@ -38,7 +38,7 @@ class Handler():
     try:
       self.file = file.get_bytes()
       im_df = pd.read_csv(BytesIO(self.file), header=None)
-      im_df = np.array(im_df)*255
+      im_df = np.array(im_df)
 
       if im_df.shape != (28, 28):
         raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {im_df.shape}")
