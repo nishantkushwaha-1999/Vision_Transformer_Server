@@ -51,7 +51,7 @@ class VisionTrnasformer():
         if type(data)!=np.ndarray:
             data = data.numpy()
         
-        print(self.hyperparams)
+        # print(self.hyperparams)
         if patch_rows==None:
             patch_rows = self.hyperparams['patch_rows']
         if patch_columns==None:
@@ -178,11 +178,20 @@ class VisionTrnasformer():
         value = np.argmax(value)
         return value
 
-    def evaluate(self, x, y):
+    def evaluate(self, x=None, y=None):
+        if x==None:
+            x = self.x_test_l
+        if y==None:
+            y = self.y_test_l
+        
         pos_feed = np.array([list(range(self.hyperparams['patch_rows']*self.hyperparams['patch_columns']
                                         ))]*x.shape[0])
         loss, acc = self.model.evaluate(x=[x, pos_feed], y=y, verbose=2)
         return "Trained model, accuracy: {:5.2f}%".format(100 * acc)
     
     def load_model(self, path: str):
+        x_train, self.y_train_l, x_test, self.y_test_l = self.load_mnist()
+        self.x_train_l = self.preprocess_data(x_train)
+        self.x_test_l = self.preprocess_data(x_test)
+
         self.model = tf.keras.models.load_model(path+'.keras', custom_objects={'ClassToken': ClassToken})
