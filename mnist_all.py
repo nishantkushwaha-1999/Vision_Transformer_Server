@@ -38,10 +38,16 @@ class Handler():
     try:
       file = file.get_bytes()
       im_df = pd.read_csv(BytesIO(file), header=None)
-      self.im_df = np.array(im_df)
+      im_df = np.array(im_df)
 
       if im_df.shape != (28, 28):
-        raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {self.im_df.shape}")
+        raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {im_df.shape}")
+      
+      max_val = np.max(im_df)
+      if max_val > 1:
+        im_df = im_df/255.0
+      
+      self.im_df = im_df.copy()
       
       image = Image.fromarray(self.im_df)
       image = image.convert("L")
