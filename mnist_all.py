@@ -38,15 +38,16 @@ class Handler():
     try:
       self.file = file.get_bytes()
       im_df = pd.read_csv(BytesIO(self.file), header=None)
-      im_df = np.array(im_df)
+      im_df = np.array(im_df)*255
 
       if im_df.shape != (28, 28):
         raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {im_df.shape}")
       
       image = Image.fromarray(im_df, '1')
-      image.save("input.png")
+      bs = BytesIO()
+      image.save(bs, format='JPEG')
 
-      return image
+      return anvil.BlobMedia("image/jpeg", bs.getvalue(), name='input')
     except Error as e:
       return e
        
