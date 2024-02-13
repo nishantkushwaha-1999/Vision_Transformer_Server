@@ -44,8 +44,8 @@ class Handler():
         raise ValueError(f"Expected file of shape(28, 28), but recieved with shape {im_df.shape}")
       
       max_val = np.max(im_df)
-      if max_val > 1:
-        im_df = im_df/255.0
+      if max_val < 1:
+        im_df = im_df*255.0
       
       self.im_df = im_df.copy()
       
