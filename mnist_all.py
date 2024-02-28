@@ -91,6 +91,6 @@ def image(file):
 def predict(model):
   return handler.predict(model)
 
-anvil.server.connect("server_DIPR2SIVGTM2M2MZM6XSS7D6-COM36AMTTDITFGYU")
+anvil.server.connect("server_ZQVS3TFCQDP3EXRVAYHGUPWH-BNSQORWJYAL6W6JB")
 # anvil.server.connect("server_O5OPT6KC6T6WXPJUMOM7IJUG-VJ5KJZ4SWIN2DSBR")
 anvil.server.wait_forever()
