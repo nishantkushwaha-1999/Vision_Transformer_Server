@@ -47,6 +47,7 @@ class Handler():
       if max_val < 1:
         im_df = im_df*255.0
       
+      im_df = im_df.astype(np.uint8)
       self.im_df = im_df.copy()
       
       image = Image.fromarray(self.im_df)
